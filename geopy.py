@@ -53,8 +53,11 @@ def main():
 		if(ip.startswith("10."))  or (ip.startswith("192.")) or (ip.startswith("172.")) or (ip.startswith("127.") or (ip.startswith("0."))):
 			skipIP(ip)
 		elif("." not in ip[:3]):
-			if(int(ip[:3]) > 223):
+			num = int(ip[:3])
+			if(num > 223):			
 				skipIP(ip)
+			else:
+				printInfo(ip, ipInfo)
 		else:
 			printInfo(ip, ipInfo)
 	
@@ -69,8 +72,11 @@ def main():
 			if(IP.startswith("10."))  or (IP.startswith("192.")) or (IP.startswith("172.")) or (IP.startswith("127.") or (IP.startswith("0."))):
 				skipIP(IP)
 			elif("." not in IP[:3]):
-				if(IP > 223):
-					skipIP(IP)
+	                        num = int(IP[:3])
+     		                if(num > 223):
+                	                skipIP(IP)
+				else:
+					printInfo(IP, ipInfo)
 			else:
 				printInfo(IP, ipInfo)
 	elif(mode == "-p"):
@@ -96,10 +102,13 @@ def main():
 			#now we need to check the first octet of the address to skip over local IPs
 			#first we'll handle
 			if(IP.startswith("10."))  or (IP.startswith("192.")) or (IP.startswith("172.")) or (IP.startswith("127.") or (IP.startswith("0."))):
-				skipIP(IP)
+				pass
 			elif("." not in IP[:3]):
-				if(IP > 223):
-					pass
+	                        num = int(IP[:3])
+        	                if(num > 223):
+                	                pass
+				else:
+					printInfo(IP, ipInfo)
 			else:
                         	printInfo(IP, ipInfo)			
 	else:
