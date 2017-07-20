@@ -1,5 +1,4 @@
 import sys
-import re
 import urllib2
 import html2text
 import socket
@@ -22,9 +21,9 @@ def getISP(ip):
 
 
 	if(len(org) > 0):
-		print "\033[1;32;40m Organization:\033[0;37;40m " + org[14:] 
+		print "\033[1;32;40m Organization:\033[0;37;40m " + org[14:] + "\n" 
 	else:
-		print "\033[1;32;40m Organization:\033[0;37;40m Uknown"
+		print "\033[1;32;40m Organization:\033[0;37;40m Uknown\n"
 
 def skipIP(ip):
 	print "\033[0;31;40m Skipping: " + "\033[0;37;40m" + ip.strip() + "\n"
