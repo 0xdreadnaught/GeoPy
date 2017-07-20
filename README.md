@@ -14,5 +14,5 @@ usage:
 	pcap mode
 	geopy.py -p <file>
 
-Some countries will thrown exceptions for city and region, so they will respond with "none". Cayman Islands would be an example where city and region are "none". 
-Pcap mode ignores local IP address, 0.0.0.0, and anthing above 223 as they are all reserved for things like multicast
+Some countries will throw exceptions for city and region, so they will respond with "none". Cayman Islands would be an example where city and region are "none". 
+All modes ignore local IP address, 0.0.0.0, and anthing above 223 as they are all reserved for things like multicast
