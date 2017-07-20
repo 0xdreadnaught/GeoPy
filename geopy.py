@@ -1,6 +1,7 @@
 import sys
 import dpkt
 import socket
+import re
 from pygeoip import GeoIP
 
 #load IP location database to variable
@@ -14,21 +15,51 @@ ip = sys.argv[2]
 
 if(mode == "-n"):
 	ipInfo = geo.record_by_addr(ip)
-	print "Target: " + ip
-	print "Country: " + str(ipInfo['country_name'])
-	print "Region: " + str(ipInfo['city']) + ", " + str(ipInfo['region_code'])
-	print "GPS: " + str(ipInfo['latitude']),",",str(ipInfo['longitude'])
+        #now we need to check the first octet of the address to skip over local IPs
+        #first we'll handle
+        if(ip.startswith("10."))  or (ip.startswith("192.")) or (ip.startswith("172.")) or (ip.startswith("127.") or (ip.startswith("0."))):
+                print "################"
+		print "Skipping " + ip.strip()
+		print "################"
+		print ""
+        elif("." not in ip[:3]):
+                if(IP > 223):
+                        print "################"
+      	                print "Skipping " + ip.strip()
+                        print "################"
+			print ""
+                else:
+                        print "Target: " + str(ip).strip()
+                        print "Country: " + str(ipInfo['country_name'])
+                        print "Region: " + str(ipInfo['city']) + ", " + str(ipInfo['region_code'])
+                        print "GPS: " + str(ipInfo['latitude']) + ", " + str(ipInfo['longitude'])
+                        print ""
+
 elif(mode == "-l"):
 	ips = sys.argv[2]
 	ipList = open(ips)
 	
 	for IP in ipList.readlines():
 		ipInfo = geo.record_by_addr(IP)
-		print "Target: " + str(IP).strip()
-		print "Country: " + str(ipInfo['country_name'])
-		print "Region: " + str(ipInfo['city']) + ", " + str(ipInfo['region_code'])
-		print "GPS: " + str(ipInfo['latitude']) + ", " + str(ipInfo['longitude'])
-		print ""
+		#now we need to check the first octet of the address to skip over local IPs
+                #first we'll handle
+                if(IP.startswith("10."))  or (IP.startswith("192.")) or (IP.startswith("172.")) or (IP.startswith("127.") or (IP.startswith("0."))):
+                        print "################"
+                        print "Skipping " + IP.strip()
+                        print "################"
+			print ""
+                elif("." not in IP[:3]):
+                        if(IP > 223):
+                                print "################"
+        	                print "Skipping " + IP.strip()
+	                        print "################"
+				print ""
+                else:
+                        print "Target: " + str(IP).strip()
+                        print "Country: " + str(ipInfo['country_name'])
+                        print "Region: " + str(ipInfo['city']) + ", " + str(ipInfo['region_code'])
+                        print "GPS: " + str(ipInfo['latitude']) + ", " + str(ipInfo['longitude'])
+                        print ""
 elif(mode == "-p"):
 	pcap = sys.argv[2]
 	pcapdump = open(pcap, 'rb')
@@ -49,23 +80,24 @@ elif(mode == "-p"):
 
 	for IP in iplist:				
 		ipInfo = geo.record_by_addr(IP)
-		
-		#now we need to check the first octet of the address to skip over local IPs
-		#first we'll handle 
-		if(IP.startswith("10."))  or (IP.startswith("192.")) or (IP.startswith("172.")) or (IP.startswith("127.")):
-	                #do nothing
-			pass
-		elif("." not in IP[:3]):
-			if(IP > 223):
-				pass
-		elif(IP == "0.0.0.0"):
-			pass
-		else:
-			print "Target: " + str(IP).strip()
-			print "Country: " + str(ipInfo['country_name'])
-			print "Region: " + str(ipInfo['city']) + ", " + str(ipInfo['region_code'])
-			print "GPS: " + str(ipInfo['latitude']) + ", " + str(ipInfo['longitude'])
-	                print ""
-			
+                #now we need to check the first octet of the address to skip over local IPs
+                #first we'll handle
+                if(IP.startswith("10."))  or (IP.startswith("192.")) or (IP.startswith("172.")) or (IP.startswith("127.") or (IP.startswith("0."))):
+                        print "################"
+                        print "Skipping " + IP.strip()
+                        print "################"
+			print ""
+                elif("." not in IP[:3]):
+                        if(IP > 223):
+                                print "################"
+        	                print "Skipping " + IP.strip()
+	                        print "################"
+				print ""
+                else:
+                        print "Target: " + str(IP).strip()
+                        print "Country: " + str(ipInfo['country_name'])
+                        print "Region: " + str(ipInfo['city']) + ", " + str(ipInfo['region_code'])
+                        print "GPS: " + str(ipInfo['latitude']) + ", " + str(ipInfo['longitude'])
+                        print ""			
 else:
 	print "Something went wrong"
